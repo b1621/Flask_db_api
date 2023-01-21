@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <!-- <img src="https://github.com/MariyaSha/groceriesList/blob/main/logo_black.png" alt="grocerry logo"> -->
+            <img src="https://img.freepik.com/free-vector/ape-cartoon-with-crown-sunglassesjpg_43623-1241.jpg?w=740&t=st=1674295234~exp=1674295834~hmac=05d3e9b80b20970b5c48e637efaa31651115771741b6a095341f3dd8d6e4d156" alt="grocerry logo">
+        </div>
+        <div>
+            <div id="remove_items">
+                <form action="/remove_items" method="POST">
+                        {% for item in shopping_items %}
+                        <input type="checkbox" name="check" id="{{item}}" value="{{item}}">
+                        <label for="{{item}}" name="{{item}}">{{item}}</label> <br>
+                        {% endfor %}
+                        <input type="submit" value="remove items">
+                </form>
+            </div>
+            <div id="add_item">
+                <form action="/add_items" method="POST">
+                    <select name="my_selection" id="">
+                        {% for item in all_items %}
+                        <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

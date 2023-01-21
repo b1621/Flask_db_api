@@ -1,0 +1,13 @@
+body{
+    font-family: "Raleway";
+    font-size: 1.5em;
+    text-align: center;
+}
+img{
+    width: 400px;
+    padding: 20px;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+}
