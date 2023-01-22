@@ -1,5 +1,7 @@
 import sqlite3
+import requests
 import random
+import json
 from flask import Flask, session, render_template, request, g
 
 app = Flask(__name__)
@@ -15,7 +17,16 @@ def index():
     return render_template('index.html', all_items=session["all_items"], shopping_items=session["shopping_items"])
 
 
-@app.route("/remove_items", methods=["post"])
+@app.route('/api')
+def test_api():
+    # response = requests.get("https://randomuser.me/api/")
+    response = requests.get(
+        "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2019-1010218")
+    res = json.loads(response.text)
+    return res
+
+
+@ app.route("/remove_items", methods=["post"])
 def remove_items():
     # "check" is name in the index.html checkbox input tag
     checked_boxes = request.form.getlist("check")
@@ -28,7 +39,7 @@ def remove_items():
     return render_template('index.html', all_items=session["all_items"], shopping_items=session["shopping_items"])
 
 
-@app.route("/add_items", methods=['post'])
+@ app.route("/add_items", methods=['post'])
 def add_items():
     session["shopping_items"].append(request.form["my_selection"])
     session.modified = True
@@ -51,7 +62,7 @@ def get_db():
     return all_data, shopping_items
 
 
-@app.teardown_appcontext
+@ app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
