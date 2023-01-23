@@ -23,8 +23,19 @@ def test_api():
     response = requests.get(
         "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2019-1010218")
     res = json.loads(response.text)
-    return res
+    return render_template('api_test.html', res=res)
+    # return res
+@app.route('/api_check', methods=['POST', 'GET'])
+def check_api():
+    service = ''
+    product = ''
+    res=[]
+    if request.method == 'POST':
+        service = request.form.get('service')
+        product = request.form.get('product')
 
+        response = requests.get(f'https://cve.circl.lu/api/browse/{service}')
+    return render_template("checkapi.html", service=service, product=product, res=res)
 
 @ app.route("/remove_items", methods=["post"])
 def remove_items():

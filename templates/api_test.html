@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+       
+        {{res.format}} <br>
+        <hr>
+        <div id="vuln">
+            {{res.vulnerabilities}}
+        </div>
+        
+        <hr>
+        <div id="vuln_up">
+
+        </div>
+        <hr> <br>
+        {{res}}
+        
+        <script>
+            var vuln = document.getElementById('vuln').innerText
+            res_up = JSON.stringify(vuln) 
+            // console.log(res_up)
+            // console.log('hello world')
+            document.getElementById('vuln_up').innerText = res_up
+            // console.log(JSON.stringify(vuln))
+        </script>
+</body>
+</html>
