@@ -29,13 +29,39 @@ def test_api():
 def check_api():
     service = ''
     product = ''
-    res=[]
+    res={}
     if request.method == 'POST':
         service = request.form.get('service')
         product = request.form.get('product')
 
         response = requests.get(f'https://cve.circl.lu/api/browse/{service}')
+        res = response.text
     return render_template("checkapi.html", service=service, product=product, res=res)
+
+@app.route('/api_test', methods=['POST', 'get'])
+def api_test():
+    part = ''
+    vendor = ''
+    product = ''
+    version = ''
+    if request.method == 'POST':
+        cpe = 'cpe:2.3:a:ntp:ntp:4.2.8'
+        part = request.form.get('part')
+        vendor = request.form.get('vendor')
+        product = request.form.get('product')
+        version = request.form.get('version')
+        key_value = request.form.get('key_value')
+        keyword = request.form.get('keyword')
+        if key_value == 'normal':
+            link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName=cpe:2.3:{part}:{vendor}:{product}:{version}'
+        else:
+            link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={keyword}'            
+        response = requests.get(link)
+        res = response.text
+        return render_template('testapipost.html',link=link,res=res, key_value=key_value)
+    return render_template('testapi.html')
+
+
 
 @ app.route("/remove_items", methods=["post"])
 def remove_items():
