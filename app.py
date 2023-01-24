@@ -58,7 +58,7 @@ def api_test():
             link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={keyword}'            
         response = requests.get(link)
         res = response.text
-        return render_template('testapipost.html',link=link,res=res, key_value=key_value)
+        return render_template('testapipost.html',link=link,res=res)
     return render_template('testapi.html')
 
 
