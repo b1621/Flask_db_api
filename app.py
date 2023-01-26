@@ -2,7 +2,8 @@ import sqlite3
 import requests
 import random
 import json
-from flask import Flask, session, render_template, request, g
+import xmltodict
+from flask import Flask, jsonify,session, render_template, request, g
 
 app = Flask(__name__)
 app.secret_key = "select_a_COMPLEX_secret_key_please"
@@ -45,7 +46,7 @@ def api_test():
     product = ''
     version = ''
     if request.method == 'POST':
-        cpe = 'cpe:2.3:a:ntp:ntp:4.2.8'
+        # cpe = 'cpe:2.3:a:ntp:ntp:4.2.8'
         part = request.form.get('part')
         vendor = request.form.get('vendor')
         product = request.form.get('product')
@@ -57,7 +58,13 @@ def api_test():
         else:
             link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={keyword}'            
         response = requests.get(link)
+        # res = json.dumps(response.text)
         res = response.text
+        # res = json.loads(response.text)
+        # data = response.json()
+        # data = xmltodict.parse(response.content)
+        # res = jsonify(data)
+
         return render_template('testapipost.html',link=link,res=res)
     return render_template('testapi.html')
 
@@ -108,3 +115,5 @@ def close_connection(exception):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
