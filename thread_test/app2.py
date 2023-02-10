@@ -20,6 +20,7 @@ def back_work():
 @app.route('/')
 def index():
     threading.Thread(target=back_work).start()
+    # back_work()
     return 'hello'
 
 @app.route('/json')
