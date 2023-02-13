@@ -21,9 +21,10 @@ def before_first_request():
 def hello_world():
     return "Hello, This is home page"
 
+
 @app.route('/about')
 def about():
-    return "about page"
+    return render_template('jquery_test.html')
 
 # @app.route()
 

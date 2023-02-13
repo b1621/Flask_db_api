@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tabs {
+        width: 500px;
+        margin: 50px auto;
+      }
+      .tabs ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .tabs li {
+        display: inline-block;
+        margin: 0 10px;
+      }
+      .tabs a {
+        display: block;
+        padding: 10px 20px;
+        background-color: lightgray;
+        text-decoration: none;
+      }
+      .tabs div {
+        display: none;
+        padding: 20px;
+        background-color: white;
+      }
+      
+</style>
+<body>
+    <div class="tabs">
+        <ul>
+            <li><a href="#tab-1">Tab 1</a></li>
+            <li><a href="#tab-2">Tab 2</a></li>
+            <li><a href="#tab-3">Tab 3</a></li>
+        </ul>
+        <div id="tab-1">
+            <h3>Tab 1 Content</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id varius nulla. Vivamus auctor elit quis odio commodo auctor. Proin euismod ligula quis enim rutrum, at feugiat nibh varius. Nam quis sapien sit amet ipsum eleifend auctor vel vel magna.</p>
+        </div>
+        <div id="tab-2">
+          <h3>Tab 2 Content</h3>
+          <p>Mauris non justo auctor, rutrum turpis non, vulputate mauris. Sed in nunc id libero interdum facilisis. Sed ac erat euismod, tristique ante ac, luctus magna. Nulla facilisi. In hac habitasse platea dictumst. Aenean euismod odio ut nunc rutrum, id vestibulum nibh rutrum.</p>
+        </div>
+        <div id="tab-3">
+            <h3>Tab 3 Content</h3>
+            <p>Praesent commodo, velit at efficitur commodo, dui dui bibendum libero, euismod feugiat neque magna id nisi. Nulla in dolor et leo commodo tincidunt. Nam venenatis enim et congue tempor. Nunc molestie risus erat, at convallis risus egestas at.</p>
+        </div>
+    </div>
+    
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    $(document).ready(function() {
+        console.log('jQuery is working');
+        $('.tabs a').click(function() {
+          var tabId = $(this).attr('href');
+          $('.tabs div').hide();
+          $(tabId).show();
+          return false;
+        });
+      });
+      
+      
+</script>
+</html>
