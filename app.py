@@ -2,8 +2,8 @@ import sqlite3
 import requests
 import random
 import json
-import xmltodict
-from flask import Flask, jsonify,session, render_template, request, g
+# import xmltodict
+from flask import Flask, jsonify, session, render_template, request, g
 
 app = Flask(__name__)
 app.secret_key = "select_a_COMPLEX_secret_key_please"
@@ -26,11 +26,13 @@ def test_api():
     res = json.loads(response.text)
     return render_template('api_test.html', res=res)
     # return res
+
+
 @app.route('/api_check', methods=['POST', 'GET'])
 def check_api():
     service = ''
     product = ''
-    res={}
+    res = {}
     if request.method == 'POST':
         service = request.form.get('service')
         product = request.form.get('product')
@@ -38,6 +40,7 @@ def check_api():
         response = requests.get(f'https://cve.circl.lu/api/browse/{service}')
         res = response.text
     return render_template("checkapi.html", service=service, product=product, res=res)
+
 
 @app.route('/api_test', methods=['POST', 'get'])
 def api_test():
@@ -56,18 +59,17 @@ def api_test():
         if key_value == 'normal':
             link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName=cpe:2.3:{part}:{vendor}:{product}:{version}'
         else:
-            link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={keyword}'            
+            link = f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={keyword}'
         response = requests.get(link)
         # res = json.dumps(response.text)
-        res = response.text
-        # res = json.loads(response.text)
+        # res = response.text
+        res = json.loads(response.text)
         # data = response.json()
         # data = xmltodict.parse(response.content)
         # res = jsonify(data)
 
-        return render_template('testapipost.html',link=link,res=res)
+        return render_template('testapipost.html', link=link, res=res)
     return render_template('testapi.html')
-
 
 
 @ app.route("/remove_items", methods=["post"])
@@ -115,5 +117,3 @@ def close_connection(exception):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
